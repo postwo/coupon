@@ -48,6 +48,8 @@ subprojects {
 		annotationProcessor("jakarta.annotation:jakarta.annotation-api")
 		annotationProcessor("jakarta.persistence:jakarta.persistence-api")
 
+		implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
+
 		testImplementation("org.springframework.boot:spring-boot-starter-test")
 	}
 }
