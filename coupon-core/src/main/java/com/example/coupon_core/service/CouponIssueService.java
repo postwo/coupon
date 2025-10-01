@@ -22,11 +22,12 @@ public class CouponIssueService {
     private final CouponIssueJpaRepository couponIssueJpaRepository;
     private final CouponJpaRepository couponJpaRepository;
 
+    // 여기 락은 redeme 꼭 읽어보기
     @Transactional
     public void issue(long couponId, long userId) {
-        Coupon coupon = findCoupon(couponId);
-        coupon.issue();
-        saveCouponIssue(couponId, userId);
+            Coupon coupon = findCoupon(couponId);
+            coupon.issue();
+            saveCouponIssue(couponId, userId);
     }
 
     @Transactional(readOnly = true)
