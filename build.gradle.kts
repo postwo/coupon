@@ -4,9 +4,13 @@ bootJar.enabled = false
 
 plugins {
 	java
-	id("org.springframework.boot") version "3.1.5"
+	id("org.springframework.boot") version "3.3.4"
 	id("io.spring.dependency-management") version "1.1.3"
 }
+
+// Spring Boot의 의존성 관리 플러그인이 참조하는 Netty 버전을 4.1.118.Final로 오버라이드합니다.
+extra["netty.version"] = "4.1.125.Final" // 취약점 패치 버전
+
 
 group = "com.example"
 version = "0.0.1-SNAPSHOT"

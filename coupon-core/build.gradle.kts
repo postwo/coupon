@@ -5,9 +5,9 @@ bootJar.enabled = false
 repositories {
 	mavenCentral()
 }
-
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
+	implementation("org.redisson:redisson-spring-boot-starter:3.39.0")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
