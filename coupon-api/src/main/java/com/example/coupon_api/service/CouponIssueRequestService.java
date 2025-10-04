@@ -17,9 +17,13 @@ public class CouponIssueRequestService {
 
     public void issueRequestV1(CouponIssueRequestDto requestDto) {
         //"lock_" + requestDto.couponId() = lock 이름
-        distributeLockExecutor.execute ("lock_" + requestDto.couponId(),10000,10000, ()-> { // redis lock 처리
-            couponIssueService.issue(requestDto.couponId(), requestDto.userId());
-        });
+        // execute = 여기에서 redis lock
+//        distributeLockExecutor.execute ("lock_" + requestDto.couponId(),10000,10000, ()-> { // redis lock 처리
+//            couponIssueService.issue(requestDto.couponId(), requestDto.userId());
+//        });
+
+        // mysql lock 처리
+        couponIssueService.issue(requestDto.couponId(), requestDto.userId());
         log.info("쿠폰 발급 완료 couponId: {}, userId: {}", requestDto.couponId(), requestDto.userId());
     }
 
