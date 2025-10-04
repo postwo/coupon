@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface CouponJpaRepository extends JpaRepository<Coupon, Long> {
 
     // mysql lock 처리
-    @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @Query("SELECT c FROM Coupon c WHERE c.id = :id ") //FOR UPDATE
+    @Lock(LockModeType.PESSIMISTIC_WRITE) //FOR UPDATE
+    @Query("SELECT c FROM Coupon c WHERE c.id = :id ")
     Optional<Coupon> findCouponWithLock(long id);
 }
