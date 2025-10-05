@@ -2,6 +2,7 @@ package com.example.coupon_api.service;
 
 import com.example.coupon_api.controller.dto.CouponIssueRequestDto;
 import com.example.coupon_core.component.DistributeLockExecutor;
+import com.example.coupon_core.service.AsyncCouponIssueService;
 import com.example.coupon_core.service.CouponIssueService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,7 @@ public class CouponIssueRequestService {
 
     private final CouponIssueService couponIssueService;
     private final DistributeLockExecutor distributeLockExecutor; // redis lock 처리
+    private final AsyncCouponIssueService asyncCouponIssueService;
 
     public void issueRequestV1(CouponIssueRequestDto requestDto) {
         //"lock_" + requestDto.couponId() = lock 이름
@@ -26,5 +28,11 @@ public class CouponIssueRequestService {
         couponIssueService.issue(requestDto.couponId(), requestDto.userId());
         log.info("쿠폰 발급 완료 couponId: {}, userId: {}", requestDto.couponId(), requestDto.userId());
     }
+
+    public void asyncIssueRequestV1(CouponIssueRequestDto requestDto) {
+        // mysql lock 처리
+        asyncCouponIssueService.issue(requestDto.couponId(), requestDto.userId());
+    }
+
 
 }

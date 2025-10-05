@@ -15,9 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class CouponIssueController {
     private final CouponIssueRequestService couponIssueRequestService;
 
+    // mysql,redis lock 처리
     @PostMapping("/issue")
     public CouponIssueResponseDto issueV1(@RequestBody CouponIssueRequestDto dto) {
         couponIssueRequestService.issueRequestV1(dto);
+        return new CouponIssueResponseDto(true, null);
+    }
+
+    // redis set
+    @PostMapping("/issue-async")
+    public CouponIssueResponseDto asyncIssueV1(@RequestBody CouponIssueRequestDto dto) {
+        couponIssueRequestService.asyncIssueRequestV1(dto);
         return new CouponIssueResponseDto(true, null);
     }
 }

@@ -7,6 +7,7 @@ public enum ErrorCode {
     DUPLICATED_COUPON_ISSUE("이미 발급된 쿠폰입니다."),
     FAIL_COUPON_ISSUE_REQUEST("쿠폰 발급 요청에 실패했습니다");
 
+
     public final String message;
 
     ErrorCode(String message) {
