@@ -1,12 +1,10 @@
 package com.example.coupon_core.repository.redis;
 
 import com.example.coupon_core.exception.CouponIssueException;
-import com.example.coupon_core.model.Coupon;
 import com.example.coupon_core.repository.redis.dto.CouponIssueRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.redisson.client.RedisClient;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Repository;
@@ -51,6 +49,20 @@ public class RedisRepository {
     public Long rPush(String key, String value) {
         return redisTemplate.opsForList().rightPush(key, value);
     }
+
+    public String lIndex(String key, long index) {
+        return redisTemplate.opsForList().index(key, index);
+    }
+
+    public String lPop(String key) {
+        return redisTemplate.opsForList().leftPop(key);
+    }
+
+
+    public Long lSize(String key) {
+        return redisTemplate.opsForList().size(key);
+    }
+
 
     // 스크립트를 실행시키는 메서드
     public void issueRequest(long couponId, long userId, int totalIssueQuantity){
