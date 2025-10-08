@@ -16,6 +16,7 @@ dependencies {
 	implementation("com.fasterxml.jackson.core:jackson-databind")
 	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.redisson:redisson-spring-boot-starter:3.39.0")
+	implementation("com.github.ben-manes.caffeine:caffeine")// localCache 라이브러리이다
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

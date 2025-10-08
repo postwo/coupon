@@ -46,6 +46,7 @@ public record CouponRedisEntity(
         return dateIssueStart.isBefore(now) && dateIssueEnd.isAfter(now);
     }
 
+    // 검증
     public void checkIssuableCoupon() {
         if (!availableIssueQuantity) {
             throw new CouponIssueException(INVALID_COUPON_ISSUE_QUANTITY, "모든 발급 수량이 소진되었습니다. coupon_id : %s".formatted(id));

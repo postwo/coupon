@@ -26,9 +26,13 @@ public class AsyncCouponIssueService2 {
 
     public void issue(long couponId, long userId) {
         // 쿠폰 캐시를 통한 유효성 검증
-        CouponRedisEntity coupon = couponCacheService.getCouponCache(couponId); // 캐시를 가지고 온다
+//        CouponRedisEntity coupon = couponCacheService.getCouponCache(couponId); // 캐시를 가지고 온다
+        //getCouponLocalCache localcache를 가지고 와서 coupon에 저장
+        CouponRedisEntity coupon = couponCacheService.getCouponLocalCache(couponId); // 로컬 캐시 생성후 그동안은 redis를 안본다 = 좀 더 빠르게 처리 가능 , redis로 들어가는 트래픽도 줄어든다
+        // redis로 들어가는 트래픽이 석착순 조건을 만족하지 못하는 사람들에 대해서 제어를 할 수 없을까 라는 고민에서
+        // local cache를 활용하는 구조를 사용
         coupon.checkIssuableCoupon(); // 캐시로 부터 유효성 검사
-        issueRequest(couponId, userId,coupon.totalQuantity());
+        issueRequest(couponId, userId,coupon.totalQuantity()); // 쿠폰 발급 큐(대기열)에 적재
     }
 
 

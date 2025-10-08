@@ -21,7 +21,7 @@ public class CacheConfiguration {
     private final RedisConnectionFactory redisConnectionFactory;
 
     @Bean
-    @Primary
+    @Primary // primary를한이유는 Cache가 두개가 돼서 설정
     public CacheManager redisCacheManager() {
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
