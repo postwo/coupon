@@ -1,0 +1,34 @@
+services:
+  prometheus: # prometheus를 통해서 지속적으로 매트릭을 수집
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./prometheus/config:/etc/prometheus
+      - ./prometheus/volume:/prometheus
+    ports:
+      - 9090:9090
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    restart: always
+    networks:
+      - promnet
+  grafana: # grafana를 통해서 시각화를 하고 대시보드 만들어서 사용
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana-data:/var/lib/grafana
+    restart: always
+    networks:
+      - promnet
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+
+networks:
+  promnet:
+    driver: bridge
+
+volumes:
+  prometheus-data:
+  grafana-data:

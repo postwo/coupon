@@ -1,0 +1,13 @@
+global:
+  scrape_interval: 5s # 매트릭 5초 마다 수집
+
+scrape_configs:
+  - job_name: 'coupon-api'
+    metrics_path: '/actuator/prometheus' # 이경로로 지표를 수집을 해서 확인 가능
+    static_configs:
+      - targets: ['host.docker.internal:8080'] # local에서 테스트 할거기 떄문에 이렇게 설정
+
+  - job_name: 'coupon-consumer'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['host.docker.internal:8081']
